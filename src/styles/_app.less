@@ -1,0 +1,149 @@
+//
+// App Header
+//
+
+.app-header {
+  background: @color-bg-light;
+  padding: 1.2rem 3rem 1.5rem;
+  box-shadow: .2rem .2rem @color-shadow;
+  transform: translateY(-.2rem);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.app-header__title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.7rem;
+  letter-spacing: .08em;
+  line-height: 1;
+  text-shadow: .15rem .15rem fade(#000, 15%);
+  padding: .1em 0 0;
+  text-transform: uppercase;
+  color: #fff;
+}
+.app-header__description {
+  margin: 1em 0 0;
+  font-size: .7rem;
+  line-height: 1.5;
+}
+
+//
+// Ribbon
+//
+
+.ribbon {
+  height: 3rem;
+  background: @color-orange;
+  position: relative;
+  margin: 0 2rem;
+}
+.ribbon__center {
+  position: relative;
+  background: inherit;
+  height: inherit;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+
+  &:before {
+    left: 0;
+    border-width: 0 2rem 1rem 0;
+    border-color: transparent darken(@color-orange, 20%) transparent transparent;
+  }
+  &:after {
+    right: 0;
+    border-width: 0 0 1rem 2rem;
+    border-color: transparent transparent transparent darken(@color-orange, 20%);
+  }
+}
+.ribbon__left,
+.ribbon__right {
+  position: absolute;
+  top: 1rem;
+  height: 100%;
+  width: 3rem;
+  background: darken(@color-orange, 10%);
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+  &:before {
+    top: 0;
+    border-width: 0 20px 30px 0;
+    border-color: transparent darken(@color-orange, 10%) transparent transparent;
+  }
+  &:after {
+    bottom: 0;
+    border-width: 0 0 30px 20px;
+    border-color: transparent transparent darken(@color-orange, 10%) transparent;
+  }
+}
+.ribbon__left {
+  right: 100%;
+  transform: translateX(2rem);
+  
+  &:before,
+  &:after {
+    left: 0;
+    transform: translateX(-100%);
+    margin-right: -1px;
+  }
+ }
+ .ribbon__right {
+  left: 100%;
+  transform: translateX(-2rem);
+
+  &:before,
+  &:after {
+    right: 0;
+    transform: scaleX(-1) translateX(-100%);
+    margin-left: -1px;
+  }
+ }
+
+ 
+
+//
+// App
+//
+
+.app { 
+  padding: 0 0 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.app__header {
+  margin: 0 0 .5rem;
+}
+.app__hangman {
+  margin: 0 auto;
+}
+.app__word {
+  margin: 3rem 0 0;
+}
+.app__misses {
+  margin: 3rem 0 0;
+}
+

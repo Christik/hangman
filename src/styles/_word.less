@@ -1,0 +1,63 @@
+//
+// Letter
+//
+
+.letter {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: .25rem;
+  background: @color-bg-light;
+  box-shadow: .2rem .2rem @color-shadow;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  text-align: center;
+}
+.letter__in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: .2rem 0 0 .2rem;
+  color: #fff;
+  text-shadow: .1rem .1rem fade(#000, 15%);
+
+  &.is-guessed,
+  &.is-missed {
+    box-shadow: inset .2rem .2rem fade(#000, 15%);
+  }
+  &.is-guessed {
+    background: @color-green;
+  }
+  &.is-missed {
+    background: @color-pink;
+  }
+}
+
+//
+// Letters
+//
+
+.letters {
+  display: flex;
+  justify-content: center;
+  padding: 0 .2rem 0 0;
+}
+.letters__item {
+  margin: 0 .5rem;
+}
+
+//
+// Misses
+//
+
+.misses {
+  text-align: center;
+}
+.misses__title {
+  text-transform: uppercase;
+  margin: 0 0 1em;
+  font-size: 1rem;
+}
