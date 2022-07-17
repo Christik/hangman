@@ -70,27 +70,21 @@
             </div><!--.app__content-->
 
             <div class="letters app__word">
-                <div class="letter letters__item">
-                    <div class="letter__in is-guessed">б</div>
-                </div>
-                <div class="letter letters__item">
-                    <div class="letter__in"></div>
-                </div>
-                <div class="letter letters__item">
-                    <div class="letter__in is-guessed">р</div>
-                </div>
-                <div class="letter letters__item">
-                    <div class="letter__in"></div>
-                </div>
-                <div class="letter letters__item">
-                    <div class="letter__in"></div>
-                </div>
-                <div class="letter letters__item">
-                    <div class="letter__in"></div>
-                </div>
             </div><!--.letters-->
         </div><!--.container-->
     </div><!--.app-->
+
+    <template id="letter-unguessed">
+        <div class="letter letters__item">
+            <div class="letter__in"></div>
+        </div>
+    </template>
+
+    <template id="letter-guessed">
+        <div class="letter letters__item">
+            <div class="letter__in is-guessed">x</div>
+        </div>
+    </template>
 
     <template id="modal">
         <div class="modal">
