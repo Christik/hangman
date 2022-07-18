@@ -1,9 +1,12 @@
 import { openModal } from './modal';
 
+const ATTEMPT_COUNT = 6;
+
 const InfoMessage = {
   DUPLICATE_CORRECT_LETTER: 'Эта буква уже отгадана',
   DUPLICATE_WRONG_LETTER: 'Ты уже выбирал эту букву',
   WIN: 'Поздравляем,\r\nты выиграл!',
+  LOSE: 'В следующий раз\r\nтебе повезет больше ;)',
 };
 
 const correctLetters = [];
@@ -21,16 +24,6 @@ const lettersWrongContainerEl = document.querySelector('.misses__letters');
 const isLetterCorrect = (letter, word) => (word.includes(letter));
 
 const isLetterDuplicate = (letter, letters) => (letters.includes(letter));
-
-const updateCorrectLetters = (letter, word) => {
-  if (isLetterDuplicate(letter, correctLetters)) {
-    console.log(InfoMessage.DUPLICATE_CORRECT_LETTER);
-    return;
-  }
-
-  correctLetters.push(letter);
-  renderWord(word);
-};
 
 const getLetterUnguessedEl = () => {
   return letterUnguessedEl.cloneNode(true);
@@ -60,6 +53,33 @@ const renderWord = (word) => {
   wordEl.append(fragment);
 };
 
+const getUserWord = (word) => {
+  const userWord = word
+    .split('')
+    .filter((letter) => (correctLetters.includes(letter)))
+    .join('');
+  
+  return userWord;
+};
+
+const isWordCorrect = (userWord, word) => (userWord === word);
+
+const updateCorrectLetters = (letter, word) => {
+  if (isLetterDuplicate(letter, correctLetters)) {
+    console.log(InfoMessage.DUPLICATE_CORRECT_LETTER);
+    return;
+  }
+
+  correctLetters.push(letter);
+  renderWord(word);
+
+  const userWord = getUserWord(word);
+  
+  if (isWordCorrect(userWord, word)) {
+    openModal(InfoMessage.WIN)
+  }
+};
+
 const getLetterWrongEl = (letter) => {
   const letterEl = letterWrongEl.cloneNode(true);
   const letterTextEl = letterEl.querySelector('.letter__in');
@@ -73,6 +93,8 @@ const renderWrongLetter = (letter) => {
   lettersWrongContainerEl.append(letterEl);
 };
 
+const areAttemptsOver = () => (wrongLetters.length >= ATTEMPT_COUNT);
+
 const updateWrongLetters = (letter) => {
   if (isLetterDuplicate(letter, wrongLetters)) {
     console.log(InfoMessage.DUPLICATE_WRONG_LETTER);
@@ -81,31 +103,17 @@ const updateWrongLetters = (letter) => {
 
   wrongLetters.push(letter);
   renderWrongLetter(letter);
-};
 
-const getUserWord = (word) => {
-  const userWord = word
-    .split('')
-    .filter((letter) => (correctLetters.includes(letter)))
-    .join('');
-  
-  return userWord;
+  if (areAttemptsOver()) {
+    openModal(InfoMessage.LOSE);
+  }
 };
-
-const isWordCorrect = (userWord, word) => (userWord === word);
 
 const checkLetter = (letter, word) => {
   letter = letter.toLowerCase();
 
   if (isLetterCorrect(letter, word)) {
     updateCorrectLetters(letter, word);
-
-    const userWord = getUserWord(word);
-    
-    if (isWordCorrect(userWord, word)) {
-      openModal(InfoMessage.WIN)
-    }
-
     return;
   }
 
