@@ -1,12 +1,6 @@
-import { openModal } from './modal';
-
-const ATTEMPT_COUNT = 6;
-
 const InfoMessage = {
   DUPLICATE_CORRECT_LETTER: 'Эта буква уже отгадана',
   DUPLICATE_WRONG_LETTER: 'Ты уже выбирал эту букву',
-  WIN: 'Поздравляем,\r\nты выиграл!',
-  LOSE: 'В следующий раз\r\nтебе повезет больше ;)',
 };
 
 const correctLetters = [];
@@ -53,17 +47,6 @@ const renderWord = (word) => {
   wordEl.append(fragment);
 };
 
-const getUserWord = (word) => {
-  const userWord = word
-    .split('')
-    .filter((letter) => (correctLetters.includes(letter)))
-    .join('');
-  
-  return userWord;
-};
-
-const isWordCorrect = (userWord, word) => (userWord === word);
-
 const updateCorrectLetters = (letter, word) => {
   if (isLetterDuplicate(letter, correctLetters)) {
     console.log(InfoMessage.DUPLICATE_CORRECT_LETTER);
@@ -72,12 +55,6 @@ const updateCorrectLetters = (letter, word) => {
 
   correctLetters.push(letter);
   renderWord(word);
-
-  const userWord = getUserWord(word);
-  
-  if (isWordCorrect(userWord, word)) {
-    openModal(InfoMessage.WIN)
-  }
 };
 
 const getLetterWrongEl = (letter) => {
@@ -93,8 +70,6 @@ const renderWrongLetter = (letter) => {
   lettersWrongContainerEl.append(letterEl);
 };
 
-const areAttemptsOver = () => (wrongLetters.length >= ATTEMPT_COUNT);
-
 const updateWrongLetters = (letter) => {
   if (isLetterDuplicate(letter, wrongLetters)) {
     console.log(InfoMessage.DUPLICATE_WRONG_LETTER);
@@ -103,10 +78,6 @@ const updateWrongLetters = (letter) => {
 
   wrongLetters.push(letter);
   renderWrongLetter(letter);
-
-  if (areAttemptsOver()) {
-    openModal(InfoMessage.LOSE);
-  }
 };
 
 const checkLetter = (letter, word) => {
@@ -120,4 +91,41 @@ const checkLetter = (letter, word) => {
   updateWrongLetters(letter);
 };
 
-export { renderWord, checkLetter };
+const getUserWord = (word) => {
+  const userWord = word
+    .split('')
+    .filter((letter) => (correctLetters.includes(letter)))
+    .join('');
+  
+  return userWord;
+};
+
+const isWordCorrect = (word) => {
+  const userWord = getUserWord(word);
+  return userWord === word;
+}
+
+const areAttemptsOver = (attemptCount) => (wrongLetters.length >= attemptCount);
+
+const resetCorrectLetters = () => {
+  correctLetters.length = 0;
+  wordEl.innerHTML = '';
+};
+
+const resetWrongLetters = () => {
+  wrongLetters.length = 0;
+  lettersWrongContainerEl.innerHTML = '';
+};
+
+const resetLetters = () => {
+  resetCorrectLetters();
+  resetWrongLetters();
+}
+
+export { 
+  renderWord, 
+  checkLetter,
+  isWordCorrect,
+  areAttemptsOver,
+  resetLetters
+};

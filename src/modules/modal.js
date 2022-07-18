@@ -4,12 +4,7 @@ const templateModal = document.querySelector('#modal').content;
 const modalEl = templateModal.querySelector('.modal').cloneNode(true);
 const textEl = modalEl.querySelector('.modal__text');
 const closeButtonEl = modalEl.querySelector('.modal__close');
-
-const openModal = (text) => {
-  textEl.textContent = text;
-  document.body.append(modalEl);
-  document.addEventListener('keydown', onModalEscKeydown);
-};
+const actionButtonEl = modalEl.querySelector('.modal__button');
 
 const closeModal = () => {
   modalEl.remove();
@@ -23,6 +18,20 @@ function onModalEscKeydown (evt) {
     closeModal();
   }
 }
+
+const openModal = (messageText, buttonText, onButtonClick) => {
+  textEl.textContent = messageText;
+  actionButtonEl.textContent = buttonText;
+
+  const onActionButtonClick = () => {
+    onButtonClick();
+    closeModal();
+  };
+
+  actionButtonEl.addEventListener('click', onActionButtonClick);
+  document.body.append(modalEl);
+  document.addEventListener('keydown', onModalEscKeydown);
+};
 
 const onCloseButtonClick = closeModal;
 

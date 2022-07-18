@@ -1,4 +1,30 @@
 //
+// Button
+//
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 2.5rem;
+  background: @color-green;
+  padding: 0 1em;
+  border: solid .3rem #fff;
+  box-shadow: .2rem .2rem @color-shadow;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1rem;
+  text-shadow: .1rem .1rem fade(#000, 15%);
+}
+
+@media (hover: hover) {
+  .button:hover {
+    background-color: darken(@color-green, 8%);
+  }
+}
+
+//
 // Button Close
 //
 
@@ -35,6 +61,6 @@
 
   @media (hover: hover) {
     .button-close:hover {
-      background-color: @color-red;
+      background-color: darken(@color-orange, 12%);
     }
   }
