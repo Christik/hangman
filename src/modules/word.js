@@ -6,6 +6,9 @@ const templateLetterUnguessed = document.querySelector('#letter-unguessed').cont
 const letterUnguessedEl = templateLetterUnguessed.querySelector('.letter');
 const templateLetterGuessed = document.querySelector('#letter-guessed').content;
 const letterGuessedEl = templateLetterGuessed.querySelector('.letter');
+const templateLetterWrong = document.querySelector('#letter-missed').content;
+const letterWrongEl = templateLetterWrong.querySelector('.letter');
+const lettersWrongContainerEl = document.querySelector('.misses__letters');
 
 const isLetterCorrect = (letter, word) => (word.includes(letter));
 
@@ -21,23 +24,14 @@ const updateCorrectLetters = (letter, word) => {
   renderWord(word);
 };
 
-const updateWrongLetters = (letter) => {
-  if (isLetterDuplicate(letter, wrongLetters)) {
-    console.log(`Ты уже промахивался с буквой ${letter}`);
-    return;
-  }
-
-  wrongLetters.push(letter);
-};
-
 const getLetterUnguessedEl = () => {
   return letterUnguessedEl.cloneNode(true);
 };
 
 const getLetterGuessedEl = (letter) => {
   const letterEl = letterGuessedEl.cloneNode(true);
-  const letterInEl = letterEl.querySelector('.letter__in');
-  letterInEl.textContent = letter;
+  const letterTextEl = letterEl.querySelector('.letter__in');
+  letterTextEl.textContent = letter;
 
   return letterEl;
 };
@@ -56,6 +50,29 @@ const renderWord = (word) => {
 
   wordEl.innerHTML = '';
   wordEl.append(fragment);
+};
+
+const getLetterWrongEl = (letter) => {
+  const letterEl = letterWrongEl.cloneNode(true);
+  const letterTextEl = letterEl.querySelector('.letter__in');
+  letterTextEl.textContent = letter;
+
+  return letterEl;
+};
+
+const renderWrongLetter = (letter) => {
+  const letterEl = getLetterWrongEl(letter);
+  lettersWrongContainerEl.append(letterEl);
+};
+
+const updateWrongLetters = (letter) => {
+  if (isLetterDuplicate(letter, wrongLetters)) {
+    console.log(`Ты уже промахивался с буквой ${letter}`);
+    return;
+  }
+
+  wrongLetters.push(letter);
+  renderWrongLetter(letter);
 };
 
 const getUserWord = (word) => {
