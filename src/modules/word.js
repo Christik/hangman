@@ -3,8 +3,10 @@ const InfoMessage = {
   DUPLICATE_WRONG_LETTER: 'Ты уже выбирал эту букву',
 };
 
-const correctLetters = [];
-const wrongLetters = [];
+const state = {
+  correctLetters: [],
+  wrongLetters: [],
+};
 
 const wordEl = document.querySelector('.app__word');
 const templateLetterUnguessed = document.querySelector('#letter-unguessed').content;
@@ -37,7 +39,7 @@ const renderWord = (word) => {
   word
     .split('')
     .map((letter) => {
-      const isLetterGuessed = correctLetters.includes(letter);
+      const isLetterGuessed = state.correctLetters.includes(letter);
       const letterEl = (isLetterGuessed) ? getLetterGuessedEl(letter) : getLetterUnguessedEl();
 
       fragment.append(letterEl);
@@ -48,12 +50,12 @@ const renderWord = (word) => {
 };
 
 const updateCorrectLetters = (letter, word) => {
-  if (isLetterDuplicate(letter, correctLetters)) {
+  if (isLetterDuplicate(letter, state.correctLetters)) {
     console.log(InfoMessage.DUPLICATE_CORRECT_LETTER);
     return;
   }
 
-  correctLetters.push(letter);
+  state.correctLetters.push(letter);
   renderWord(word);
 };
 
@@ -71,12 +73,12 @@ const renderWrongLetter = (letter) => {
 };
 
 const updateWrongLetters = (letter) => {
-  if (isLetterDuplicate(letter, wrongLetters)) {
+  if (isLetterDuplicate(letter, state.wrongLetters)) {
     console.log(InfoMessage.DUPLICATE_WRONG_LETTER);
     return;
   }
 
-  wrongLetters.push(letter);
+  state.wrongLetters.push(letter);
   renderWrongLetter(letter);
 };
 
@@ -94,7 +96,7 @@ const checkLetter = (letter, word) => {
 const getUserWord = (word) => {
   const userWord = word
     .split('')
-    .filter((letter) => (correctLetters.includes(letter)))
+    .filter((letter) => (state.correctLetters.includes(letter)))
     .join('');
   
   return userWord;
@@ -105,15 +107,15 @@ const isWordCorrect = (word) => {
   return userWord === word;
 }
 
-const areAttemptsOver = (attemptCount) => (wrongLetters.length >= attemptCount);
+const areAttemptsOver = (attemptCount) => (state.wrongLetters.length >= attemptCount);
 
 const resetCorrectLetters = () => {
-  correctLetters.length = 0;
+  state.correctLetters.length = 0;
   wordEl.innerHTML = '';
 };
 
 const resetWrongLetters = () => {
-  wrongLetters.length = 0;
+  state.wrongLetters.length = 0;
   lettersWrongContainerEl.innerHTML = '';
 };
 

@@ -1,6 +1,7 @@
 import './styles/styles.less';
 
 import { getWords } from './modules/data';
+import { getRandomElementFromArray, isKeyRussianLetter } from './modules/util';
 import { renderWord, checkLetter, isWordCorrect, areAttemptsOver, resetLetters } from './modules/word';
 import { openModal } from './modules/modal';
 
@@ -9,37 +10,43 @@ const MODAL_BUTTON_TEXT = 'Играть';
 
 const InfoMessage = {
   WIN: 'Поздравляем,\r\nты выиграл!',
-  LOSE: 'В следующий раз\r\nтебе повезет больше ;)',
+  LOSE: 'В следующий раз\r\nповезет больше ;)',
 };
 
-const restartGame = (word) => {
+const state = {
+  currentWord: '',
+};
+
+const updateCurrentWord = (words) => (state.word = getRandomElementFromArray(words));
+
+const restartGame = (words) => {
   return () => {
+    const newWord = updateCurrentWord(words);
+
     resetLetters();
-    renderWord(word);
+    renderWord(newWord);
   };
 };
 
 const initGame = async () => {
   const words = await getWords();
-  const word = words[0];
+  updateCurrentWord(words);
   
-  renderWord(word);
+  renderWord(state.word);
 
   const onWordKeydown = (evt) => {
-    const isRussianLetter = evt.key.match(/[а-яА-Я]/);
-
-    if (isRussianLetter) {
+    if (isKeyRussianLetter(evt)) {
       const letter = evt.key;
       
-      checkLetter(letter, word);
+      checkLetter(letter, state.word);
   
-      if (isWordCorrect(word)) {
-        openModal(InfoMessage.WIN, MODAL_BUTTON_TEXT, restartGame(word));
+      if (isWordCorrect(state.word)) {
+        openModal(InfoMessage.WIN, MODAL_BUTTON_TEXT, restartGame(words));
         return;
       }
 
       if (areAttemptsOver(ATTEMPT_COUNT)) {
-        openModal(InfoMessage.LOSE, MODAL_BUTTON_TEXT, restartGame(word));
+        openModal(InfoMessage.LOSE, MODAL_BUTTON_TEXT, restartGame(words));
       }    
     }
   };
