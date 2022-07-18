@@ -1,3 +1,11 @@
+import { openModal } from './modal';
+
+const InfoMessage = {
+  DUPLICATE_CORRECT_LETTER: 'Эта буква уже отгадана',
+  DUPLICATE_WRONG_LETTER: 'Ты уже выбирал эту букву',
+  WIN: 'Поздравляем,\r\nты выиграл!',
+};
+
 const correctLetters = [];
 const wrongLetters = [];
 
@@ -16,7 +24,7 @@ const isLetterDuplicate = (letter, letters) => (letters.includes(letter));
 
 const updateCorrectLetters = (letter, word) => {
   if (isLetterDuplicate(letter, correctLetters)) {
-    console.log('Такая отгаданная буква уже есть');
+    console.log(InfoMessage.DUPLICATE_CORRECT_LETTER);
     return;
   }
 
@@ -67,7 +75,7 @@ const renderWrongLetter = (letter) => {
 
 const updateWrongLetters = (letter) => {
   if (isLetterDuplicate(letter, wrongLetters)) {
-    console.log(`Ты уже промахивался с буквой ${letter}`);
+    console.log(InfoMessage.DUPLICATE_WRONG_LETTER);
     return;
   }
 
@@ -95,7 +103,7 @@ const checkLetter = (letter, word) => {
     const userWord = getUserWord(word);
     
     if (isWordCorrect(userWord, word)) {
-      console.log('Ура, ты выиграл!')
+      openModal(InfoMessage.WIN)
     }
 
     return;
