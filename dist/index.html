@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Виселица</title>
+<script defer src="index.bundle.js"></script></head>
+<body>
+    <div class="app">
+        <div class="container">
+            <div class="app-header app__header">
+                <div class="app-header__left">
+                    <div class="ribbon">
+                        <div class="ribbon__left"></div>
+                        <div class="ribbon__right"></div>
+                        <div class="ribbon__center">
+                            <h1 class="app-header__title">
+                                Виселица
+                            </h1>
+                        </div>
+                    </div><!--.ribbon-->
+                    <p class="app-header__description">
+                        Отгадай слово:<br/> 
+                        вводи буквы с клавиатуры
+                    </p>
+                </div><!--.app-header__left-->
+            </div><!--.app__header-->
+
+            <div class="app__content">
+                <div class="hangman app__hangman">
+                    <svg viewBox="0 0 545 820" fill="none">
+                        <g class="hangman__part hangman__head is-hidden">                            
+                            <rect x="325" y="120" width="150" height="130" fill="#E8C38D"/>
+                            <path d="M475 120H325L325 169.5H345V150H455.5V170H475L475 120Z" fill="#8B633D"/>
+                        </g>
+                        <g class="hangman__part hangman__body is-hidden">                            
+                            <rect x="325" y="250" width="150" height="200" fill="#3FB0FF"/>
+                            <path d="M366.5 269.5L366.5 250.5H433.5V269.5H414.5V288.5H385.5V269.5H366.5Z" fill="#C0A276"/>
+                            <path d="M366.5 250L366.5 250.5M366.5 250.5L366.5 269.5M366.5 250.5H433.5M366.5 250.5H366M366.5 269.5L366.5 270M366.5 269.5H366M366.5 269.5H385.5M385.5 269.5H386M385.5 269.5V269M385.5 269.5V288.5M385.5 288.5V289M385.5 288.5H385M385.5 288.5H414.5M414.5 288.5H415M414.5 288.5V289M414.5 288.5V269.5M414.5 269.5V269M414.5 269.5H414M414.5 269.5H433.5M433.5 269.5H434M433.5 269.5V270M433.5 269.5V250.5M433.5 250.5V250M433.5 250.5H434" stroke="#C0A276"/>
+                        </g>
+                        <g class="hangman__part hangman__hand-left is-hidden">                            
+                            <rect x="255" y="250" width="70" height="220" fill="#E8C38D"/>
+                            <rect x="255" y="250" width="70" height="70" fill="#3FB0FF"/>
+                        </g>
+                        <g class="hangman__part hangman__hand-right is-hidden">                            
+                            <rect x="475" y="250" width="70" height="220" fill="#E8C38D"/>
+                            <rect x="475" y="250" width="70" height="70" fill="#3FB0FF"/>
+                        </g>
+                        <g class="hangman__part hangman__leg-left is-hidden">
+                            <rect x="325" y="450" width="75" height="230" fill="#646DB2"/>
+                            <rect x="325" y="660" width="75" height="20" fill="#444444"/>
+                        </g>
+                        <g class="hangman__part hangman__leg-right is-hidden">                            
+                            <rect x="400" y="450" width="75" height="230" fill="#646DB2"/>
+                            <rect x="400" y="660" width="75" height="20" fill="#444444"/>
+                        </g>
+                        <g class="gallows">
+                            <path d="M90 0H110V820H90V0Z" fill="#636AB2"/>
+                            <path d="M0 800H200V820H0V800Z" fill="#636AB2"/>
+                            <path d="M90 0H410V20H90V0Z" fill="#636AB2"/>
+                            <path d="M390 0H410V120H390V0Z" fill="#636AB2"/>
+                        </g>
+                    </svg>                    
+                </div><!--.hangman-->
+
+                <div class="misses app__misses">
+                    <p class="misses__title">Промахи:</p>
+
+                    <div class="letters misses__letters">
+                    </div><!--.letters-->
+                </div><!--.misses-->
+            </div><!--.app__content-->
+        </div><!--.container-->
+
+        <div class="letters app__word">
+        </div><!--.letters-->
+
+        <button type="button"
+                class="button app__restart is-hidden">
+            Играть заново
+        </button>
+    </div><!--.app-->
+
+    <template id="letter-unguessed">
+        <div class="letter letters__item">
+            <div class="letter__in"></div>
+        </div>
+    </template>
+
+    <template id="letter-guessed">
+        <div class="letter letters__item">
+            <div class="letter__in is-guessed">x</div>
+        </div>
+    </template>
+
+    <template id="letter-missed">
+        <div class="letter letters__item">
+            <div class="letter__in is-missed">x</div>
+        </div>
+    </template>
+
+    <template id="modal">
+        <div class="modal">
+            <div class="modal__box">
+                <p class="modal__text">
+                    Text
+                </p>
+                <button type="button"
+                        class="button modal__button">
+                    Button
+                </button>
+                <button type="button"
+                        class="button-close modal__close">
+                    <span>Закрыть</span>
+                </button>
+            </div><!--.modal__box-->
+        </div><!--.modal-->
+    </template>
+
+    <template id="notice">
+        <div class="notice">
+            <div class="notice__text">
+                Text
+            </div>
+        </div><!--.notice-->
+    </template>
+</body>
+</html>
