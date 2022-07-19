@@ -1,6 +1,12 @@
+import { showNotice } from './notice';
+
 const InfoMessage = {
-  DUPLICATE_CORRECT_LETTER: 'Эта буква уже отгадана',
-  DUPLICATE_WRONG_LETTER: 'Ты уже выбирал эту букву',
+  getDuplicateCorrect (letter) {
+    return `Буква «${letter}» уже отгадана`;
+  },
+  getDuplicateWrong (letter) {
+    return `Ты уже выбирал букву «${letter}»`;
+  },
 };
 
 const state = {
@@ -51,7 +57,8 @@ const renderWord = (word) => {
 
 const updateCorrectLetters = (letter, word) => {
   if (isLetterDuplicate(letter, state.correctLetters)) {
-    console.log(InfoMessage.DUPLICATE_CORRECT_LETTER);
+    const message = InfoMessage.getDuplicateCorrect(letter);
+    showNotice(message);
     return;
   }
 
@@ -74,7 +81,8 @@ const renderWrongLetter = (letter) => {
 
 const updateWrongLetters = (letter) => {
   if (isLetterDuplicate(letter, state.wrongLetters)) {
-    console.log(InfoMessage.DUPLICATE_WRONG_LETTER);
+    const message = InfoMessage.getDuplicateWrong(letter);
+    showNotice(message);
     return;
   }
 

@@ -1,0 +1,35 @@
+//
+// Notice
+//
+
+.notice {
+  position: fixed;
+  left: 50%;
+  top: .5rem;
+  max-width: 500px;
+  transform: translate(-50%, -3rem);
+  opacity: 0;
+  z-index: 10;
+  background: @body-color;
+  color: #fff;
+  font-size: .7rem;
+  line-height: 1.7;
+  padding: .75em 2em;
+  text-align: center;
+  text-shadow: 1px 1px fade(#000, 50%);
+
+  &_shown {
+    animation: showNotice ease-in-out forwards .3s;
+  }
+}
+
+@keyframes showNotice {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}

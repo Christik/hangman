@@ -1,7 +1,7 @@
 import './styles/styles.less';
 
 import { getWords } from './modules/data';
-import { getRandomElementFromArray, isKeyRussianLetter } from './modules/util';
+import { showElement, getRandomElementFromArray, isKeyRussianLetter } from './modules/util';
 import { renderWord, checkLetter, isWordCorrect, areAttemptsOver, resetLetters } from './modules/word';
 import { openModal } from './modules/modal';
 
@@ -14,15 +14,19 @@ const InfoMessage = {
 };
 
 const state = {
-  currentWord: '',
+  word: '',
+  isGameFinished: false,
 };
+
+const restartButtonEl = document.querySelector('.app__restart');
 
 const updateCurrentWord = (words) => (state.word = getRandomElementFromArray(words));
 
-const restartGame = (words) => {
+const createRestartGame = (words) => {
   return () => {
     const newWord = updateCurrentWord(words);
 
+    state.isGameFinished = false;
     resetLetters();
     renderWord(newWord);
   };
@@ -30,27 +34,39 @@ const restartGame = (words) => {
 
 const initGame = async () => {
   const words = await getWords();
-  updateCurrentWord(words);
-  
+
+  updateCurrentWord(words);  
   renderWord(state.word);
+  showElement(restartButtonEl);
 
   const onWordKeydown = (evt) => {
-    if (isKeyRussianLetter(evt)) {
+    if (!state.isGameFinished && isKeyRussianLetter(evt)) {
       const letter = evt.key;
       
       checkLetter(letter, state.word);
-  
-      if (isWordCorrect(state.word)) {
-        openModal(InfoMessage.WIN, MODAL_BUTTON_TEXT, restartGame(words));
-        return;
-      }
 
-      if (areAttemptsOver(ATTEMPT_COUNT)) {
-        openModal(InfoMessage.LOSE, MODAL_BUTTON_TEXT, restartGame(words));
-      }    
+      if (isWordCorrect(state.word) || areAttemptsOver(ATTEMPT_COUNT)) {
+        state.isGameFinished = true;
+    
+        if (isWordCorrect(state.word)) {
+          openModal(InfoMessage.WIN, MODAL_BUTTON_TEXT, createRestartGame(words));
+          return;
+        }
+
+        if (areAttemptsOver(ATTEMPT_COUNT)) {
+          state.isGameFinished = true;
+          openModal(InfoMessage.LOSE, MODAL_BUTTON_TEXT, createRestartGame(words));
+        }    
+      }
     }
   };
 
+  const onRestartButtonClick = () => {
+    const restartGame = createRestartGame(words);
+    restartGame();
+  };
+
+  restartButtonEl.addEventListener('click', onRestartButtonClick);
   document.addEventListener('keydown', onWordKeydown);
 };
 
