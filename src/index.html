@@ -30,19 +30,31 @@
             <div class="app__content">
                 <div class="hangman app__hangman">
                     <svg viewBox="0 0 545 820" fill="none">
-                        <rect x="400" y="450" width="75" height="230" fill="#646DB2"/>
-                        <rect x="400" y="660" width="75" height="20" fill="#444444"/>
-                        <rect x="325" y="450" width="75" height="230" fill="#646DB2"/>
-                        <rect x="325" y="660" width="75" height="20" fill="#444444"/>
-                        <rect x="475" y="250" width="70" height="220" fill="#E8C38D"/>
-                        <rect x="475" y="250" width="70" height="70" fill="#3FB0FF"/>
-                        <rect x="255" y="250" width="70" height="220" fill="#E8C38D"/>
-                        <rect x="255" y="250" width="70" height="70" fill="#3FB0FF"/>
-                        <rect x="325" y="250" width="150" height="200" fill="#3FB0FF"/>
-                        <path d="M366.5 269.5L366.5 250.5H433.5V269.5H414.5V288.5H385.5V269.5H366.5Z" fill="#C0A276"/>
-                        <path d="M366.5 250L366.5 250.5M366.5 250.5L366.5 269.5M366.5 250.5H433.5M366.5 250.5H366M366.5 269.5L366.5 270M366.5 269.5H366M366.5 269.5H385.5M385.5 269.5H386M385.5 269.5V269M385.5 269.5V288.5M385.5 288.5V289M385.5 288.5H385M385.5 288.5H414.5M414.5 288.5H415M414.5 288.5V289M414.5 288.5V269.5M414.5 269.5V269M414.5 269.5H414M414.5 269.5H433.5M433.5 269.5H434M433.5 269.5V270M433.5 269.5V250.5M433.5 250.5V250M433.5 250.5H434" stroke="#C0A276"/>
-                        <rect x="325" y="120" width="150" height="130" fill="#E8C38D"/>
-                        <path d="M475 120H325L325 169.5H345V150H455.5V170H475L475 120Z" fill="#8B633D"/>
+                        <g class="hangman__part hangman__head is-hidden">                            
+                            <rect x="325" y="120" width="150" height="130" fill="#E8C38D"/>
+                            <path d="M475 120H325L325 169.5H345V150H455.5V170H475L475 120Z" fill="#8B633D"/>
+                        </g>
+                        <g class="hangman__part hangman__body is-hidden">                            
+                            <rect x="325" y="250" width="150" height="200" fill="#3FB0FF"/>
+                            <path d="M366.5 269.5L366.5 250.5H433.5V269.5H414.5V288.5H385.5V269.5H366.5Z" fill="#C0A276"/>
+                            <path d="M366.5 250L366.5 250.5M366.5 250.5L366.5 269.5M366.5 250.5H433.5M366.5 250.5H366M366.5 269.5L366.5 270M366.5 269.5H366M366.5 269.5H385.5M385.5 269.5H386M385.5 269.5V269M385.5 269.5V288.5M385.5 288.5V289M385.5 288.5H385M385.5 288.5H414.5M414.5 288.5H415M414.5 288.5V289M414.5 288.5V269.5M414.5 269.5V269M414.5 269.5H414M414.5 269.5H433.5M433.5 269.5H434M433.5 269.5V270M433.5 269.5V250.5M433.5 250.5V250M433.5 250.5H434" stroke="#C0A276"/>
+                        </g>
+                        <g class="hangman__part hangman__hand-left is-hidden">                            
+                            <rect x="255" y="250" width="70" height="220" fill="#E8C38D"/>
+                            <rect x="255" y="250" width="70" height="70" fill="#3FB0FF"/>
+                        </g>
+                        <g class="hangman__part hangman__hand-right is-hidden">                            
+                            <rect x="475" y="250" width="70" height="220" fill="#E8C38D"/>
+                            <rect x="475" y="250" width="70" height="70" fill="#3FB0FF"/>
+                        </g>
+                        <g class="hangman__part hangman__leg-left is-hidden">
+                            <rect x="325" y="450" width="75" height="230" fill="#646DB2"/>
+                            <rect x="325" y="660" width="75" height="20" fill="#444444"/>
+                        </g>
+                        <g class="hangman__part hangman__leg-right is-hidden">                            
+                            <rect x="400" y="450" width="75" height="230" fill="#646DB2"/>
+                            <rect x="400" y="660" width="75" height="20" fill="#444444"/>
+                        </g>
                         <g class="gallows">
                             <path d="M90 0H110V820H90V0Z" fill="#636AB2"/>
                             <path d="M0 800H200V820H0V800Z" fill="#636AB2"/>

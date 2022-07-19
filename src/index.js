@@ -4,6 +4,7 @@ import { getWords } from './modules/data';
 import { showElement, getRandomElementFromArray, isKeyRussianLetter } from './modules/util';
 import { renderWord, checkLetter, isWordCorrect, areAttemptsOver, resetLetters } from './modules/word';
 import { openModal } from './modules/modal';
+import { resetHangman } from './modules/hangman';
 
 const ATTEMPT_COUNT = 6;
 const MODAL_BUTTON_TEXT = 'Играть';
@@ -28,6 +29,7 @@ const createRestartGame = (words) => {
 
     state.isGameFinished = false;
     resetLetters();
+    resetHangman();
     renderWord(newWord);
   };
 };

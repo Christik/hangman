@@ -1,4 +1,5 @@
 import { showNotice } from './notice';
+import { showHangmanPart } from './hangman';
 
 const InfoMessage = {
   getDuplicateCorrect (letter) {
@@ -88,6 +89,7 @@ const updateWrongLetters = (letter) => {
 
   state.wrongLetters.push(letter);
   renderWrongLetter(letter);
+  showHangmanPart();
 };
 
 const checkLetter = (letter, word) => {
