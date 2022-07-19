@@ -28,8 +28,9 @@ const openModal = (messageText, buttonText, onButtonClick) => {
     closeModal();
   };
 
-  actionButtonEl.addEventListener('click', onActionButtonClick);
   document.body.append(modalEl);
+  actionButtonEl.focus();
+  actionButtonEl.addEventListener('click', onActionButtonClick);
   document.addEventListener('keydown', onModalEscKeydown);
 };
 

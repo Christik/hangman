@@ -1,4 +1,4 @@
-const HIDDING_DELAY = 2000;
+const DEFAULT_DELAY = 2000;
 const SHOWING_CLASS = 'notice_shown';
 
 const state = {
@@ -13,14 +13,14 @@ const hideNotice = () => {
   noticeEl.remove();
 };
 
-const showNotice = (text) => {
+const showNotice = (text, delay = DEFAULT_DELAY) => {
   clearTimeout(state.timerId);
 
   textEl.textContent = text;
   document.body.append(noticeEl);
   noticeEl.classList.add(SHOWING_CLASS);
 
-  state.timerId = setTimeout(hideNotice, HIDDING_DELAY);
+  state.timerId = setTimeout(hideNotice, delay);
 };
 
 export { showNotice };
